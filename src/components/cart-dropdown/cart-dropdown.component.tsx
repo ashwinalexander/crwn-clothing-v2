@@ -1,25 +1,28 @@
-import { useCallback } from 'react';
+import { useCallback, useState } from "react";
 
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
-import Button from '../button/button.component';
-import CartItem from '../cart-item/cart-item.component';
-import { selectCartItems } from '../../store/cart/cart.selector';
+import Button from "../button/button.component";
+import CartItem from "../cart-item/cart-item.component";
+import { selectCartItems } from "../../store/cart/cart.selector";
 
 import {
   CartDropdownContainer,
   EmptyMessage,
-  CartItems,
-} from './cart-dropdown.styles';
+  CartItems
+} from "./cart-dropdown.styles";
 
 const CartDropdown = () => {
   const cartItems = useSelector(selectCartItems);
   const navigate = useNavigate();
 
+  const [temp, setTemp] = useState("a");
+
   const goToCheckoutHandler = useCallback(() => {
-    navigate('/checkout');
-  }, []);
+    console.log(temp);
+    //  navigate("/checkout");
+  }, [temp]);
 
   return (
     <CartDropdownContainer>
@@ -31,6 +34,7 @@ const CartDropdown = () => {
         )}
       </CartItems>
       <Button onClick={goToCheckoutHandler}>GO TO CHECKOUT</Button>
+      <Button onClick={() => setTemp("B")}>UPDATE</Button>
     </CartDropdownContainer>
   );
 };
